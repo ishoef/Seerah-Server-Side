@@ -20,7 +20,7 @@ app.use("/api/users", userRoutes);
 
 // Basic route
 app.get("/", (req, res) => {
-  res.json("Learn Seerah Server  is running");
+  res.send("Learn Seerah Server  is running");
 });
 
 // Start server
