@@ -7,11 +7,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String }, // optional for OAuth
     uid: { type: String, unique: true, sparse: true }, // optional
     photoURL: { type: String }, // optional
+    role: { type: String, required: true },
     provider: { type: String, default: "local" }, // "google", "facebook", etc.
     extraData: { type: mongoose.Schema.Types.Mixed }, // store any extra info
   },
   { timestamps: true }
 );
-
 
 export default mongoose.model("User", userSchema);
