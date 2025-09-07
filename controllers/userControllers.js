@@ -8,6 +8,7 @@ export const createUser = async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
+    console.log(error.message)
   }
 };
 
