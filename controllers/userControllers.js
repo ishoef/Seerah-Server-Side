@@ -1,9 +1,5 @@
 import User from "../models/User.js";
 
-// @desc    Create a new user
-// @route   POST /api/users
-import User from "../models/User.js";
-
 // @desc    Create a new user or return existing
 // @route   POST /api/users
 export const createUser = async (req, res) => {
