@@ -2,15 +2,33 @@ import User from "../models/User.js";
 
 // @desc    Create a new user
 // @route   POST /api/users
+import User from "../models/User.js";
+
+// @desc    Create a new user or return existing
+// @route   POST /api/users
 export const createUser = async (req, res) => {
   try {
-    const user = await User.create(req.body);
-    res.status(201).json(user);
+    const { uid, email } = req.body;
+
+    // Check if the user already exists
+    let user = await User.findOne({ uid });
+
+    if (!user) {
+      // First-time login: create user
+      user = await User.create(req.body);
+      return res.status(201).json(user);
+    } else {
+      // User already exists: optionally update last login or extraData
+      user.extraData = req.body.extraData || user.extraData;
+      await user.save();
+      return res.status(200).json(user);
+    }
   } catch (error) {
-    res.status(400).json({ error: error.message });
-    console.log(error.message)
+    console.error(error.message);
+    res.status(500).json({ error: "Server Error" });
   }
 };
+
 
 // @desc    Get all users
 // @route   GET /api/users
