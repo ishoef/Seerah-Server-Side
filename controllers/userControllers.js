@@ -37,6 +37,22 @@ export const getUsers = async (req, res) => {
   }
 };
 
+// @desc    Get user by email
+// @route   GET /api/users/email/:email
+export const getUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
 // @desc    Update user
 // @route   PUT /api/users/:id
 export const updateUser = async (req, res) => {
